@@ -708,11 +708,17 @@ static Py_ssize_t Py_CalcWidth(PyObject *text, Py_ssize_t start_offs,
 static PyObject * calc_width(PyObject *self, PyObject *args)
 {
     PyObject *text;
-    int start_offs, end_offs;
+    int start_offs = 0, end_offs = 0, str_len = 0;
     long ret;
 
-    if (!PyArg_ParseTuple(args, "Oii", &text, &start_offs, &end_offs))
-        return NULL; 
+    if (!PyArg_ParseTuple(args, "O|ii", &text, &start_offs, &end_offs))
+        return NULL;
+
+    str_len = (int) PyObject_Length(text);
+
+    if (end_offs == 0 || end_offs == -1 || end_offs > str_len) {
+        end_offs = str_len;
+    }
 
     ret = Py_CalcWidth(text, start_offs, end_offs);
     if (ret==-1) //an error occured

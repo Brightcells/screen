@@ -213,7 +213,7 @@ def calc_text_pos(text, start_offs, end_offs, pref_col):
     return i, i - start_offs
 
 
-def calc_width(text, start_offs, end_offs):
+def calc_width(text, start_offs=0, end_offs=0):
     """
     Return the screen column width of text between start_offs and end_offs.
 
@@ -223,6 +223,11 @@ def calc_width(text, start_offs, end_offs):
     previous character (take zero columns).  Use the widths table above
     to calculate the screen column width of text[start_offs:end_offs]
     """
+
+    lt = len(text)
+
+    if (end_offs == 0) or (end_offs == -1) or (end_offs > lt):
+        end_offs = lt
 
     assert start_offs <= end_offs, repr((start_offs, end_offs))
 
