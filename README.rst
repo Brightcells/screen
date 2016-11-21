@@ -2,7 +2,7 @@
 screen
 ======
 
-Screen width and so on
+Console/Screen/Terminal width and so on
 
 Installation
 ============
